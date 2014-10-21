@@ -1,4 +1,4 @@
-package me.standy;
+package me.standy.streams;
 
 import java.util.NoSuchElementException;
 

@@ -1,9 +1,9 @@
 package me.standy.tests;
 
-import me.standy.MetaTemplateMatcher;
-import me.standy.RandomCharStream;
-import me.standy.SingleTemplateMatcher;
-import me.standy.StringStream;
+import me.standy.matchers.utility.Occurrence;
+import me.standy.streams.RandomCharStream;
+import me.standy.matchers.SingleTemplateMatcher;
+import me.standy.streams.StringStream;
 import org.junit.Test;
 
 import java.util.*;
@@ -17,21 +17,21 @@ import static org.junit.Assert.assertArrayEquals;
  * Created by astepanov on 10.10.14.
  */
 public class SingleTemplateMatcherTest {
-    private Collection<MetaTemplateMatcher.Occurrence> getRightAnswer(String template, int templateId, String text) {
-        Collection<MetaTemplateMatcher.Occurrence> answer = new ArrayList<>();
+    private Collection<Occurrence> getRightAnswer(String template, int templateId, String text) {
+        Collection<Occurrence> answer = new ArrayList<>();
         Pattern p = Pattern.compile(Pattern.quote(template));
         Matcher m = p.matcher(text);
         int start = 0;
         while(m.find(start)) {
-            answer.add(new MetaTemplateMatcher.Occurrence(templateId, m.end() - 1));
+            answer.add(new Occurrence(templateId, m.end() - 1));
             start = m.start() + 1;
         }
         return answer;
     }
 
-    private class OccurrenceComparator implements Comparator<MetaTemplateMatcher.Occurrence> {
+    private class OccurrenceComparator implements Comparator<Occurrence> {
         @Override
-        public int compare(MetaTemplateMatcher.Occurrence o1, MetaTemplateMatcher.Occurrence o2) {
+        public int compare(Occurrence o1, Occurrence o2) {
             if (o1.getPosition() == o2.getPosition())
                 return o1.getTemplateId() - o2.getTemplateId();
             return o1.getPosition() - o2.getPosition();
@@ -39,8 +39,8 @@ public class SingleTemplateMatcherTest {
     }
 
     private <T> void assertCollectionsIsomorphism(Collection<T> c1, Collection<T> c2) {
-        MetaTemplateMatcher.Occurrence[] t1 = new MetaTemplateMatcher.Occurrence[c1.size()];
-        MetaTemplateMatcher.Occurrence[] t2 = new MetaTemplateMatcher.Occurrence[c2.size()];
+        Occurrence[] t1 = new Occurrence[c1.size()];
+        Occurrence[] t2 = new Occurrence[c2.size()];
         c1.toArray(t1);
         c2.toArray(t2);
         Arrays.sort(t1, new OccurrenceComparator());
@@ -49,8 +49,8 @@ public class SingleTemplateMatcherTest {
     }
 
     private void testString(SingleTemplateMatcher matcher, String template, int templateId, String text) {
-        Collection<MetaTemplateMatcher.Occurrence> rightAnswer = getRightAnswer(template, templateId, text);
-        Collection<MetaTemplateMatcher.Occurrence> result = matcher.matchStream(new StringStream(text));
+        Collection<Occurrence> rightAnswer = getRightAnswer(template, templateId, text);
+        Collection<Occurrence> result = matcher.matchStream(new StringStream(text));
         assertCollectionsIsomorphism(rightAnswer, result);
     }
 
@@ -59,8 +59,8 @@ public class SingleTemplateMatcherTest {
         String template = new RandomCharStream(templateSize, alphabet).toString();
         SingleTemplateMatcher matcher = new SingleTemplateMatcher();
         int templateId = matcher.addTemplate(template);
-        Collection<MetaTemplateMatcher.Occurrence> rightAnswer = getRightAnswer(template, templateId, stream.toString());
-        Collection<MetaTemplateMatcher.Occurrence> result = matcher.matchStream(stream);
+        Collection<Occurrence> rightAnswer = getRightAnswer(template, templateId, stream.toString());
+        Collection<Occurrence> result = matcher.matchStream(stream);
         assertCollectionsIsomorphism(rightAnswer, result);
     }
 

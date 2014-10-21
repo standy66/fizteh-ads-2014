@@ -1,6 +1,5 @@
-package me.standy;
+package me.standy.streams;
 
-import java.io.BufferedReader;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
