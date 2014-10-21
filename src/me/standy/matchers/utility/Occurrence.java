@@ -1,9 +1,9 @@
 package me.standy.matchers.utility;
 
 /**
-* Created by astepanov on 21.10.14.
-*/
-public class Occurrence {
+ * Created by astepanov on 21.10.14.
+ */
+public class Occurrence implements Comparable<Occurrence> {
     private int mTemplateId;
     private int mPosition;
 
@@ -23,10 +23,15 @@ public class Occurrence {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Occurrence) {
-            Occurrence casted = (Occurrence)obj;
+            Occurrence casted = (Occurrence) obj;
             return casted.mPosition == mPosition && casted.mTemplateId == mTemplateId;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int compareTo(Occurrence o) {
+        return 0;
     }
 }

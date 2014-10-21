@@ -4,7 +4,7 @@ import me.standy.matchers.utility.Occurrence;
 import me.standy.streams.CharStream;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by astepanov on 10.10.14.
@@ -19,7 +19,7 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
     public int addTemplate(String template) throws UnsupportedOperationException {
         if (sample != null)
             throw new UnsupportedOperationException("This class doesn't support multiple templates.");
-        sample = template + (char)0;
+        sample = template + (char) 0;
         templateLength = sample.length();
         samplePi = new int[templateLength];
         samplePi[0] = 0;
@@ -35,10 +35,10 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
     }
 
     @Override
-    public Collection<Occurrence> matchStream(CharStream stream) {
+    public List<Occurrence> matchStream(CharStream stream) throws IllegalStateException {
         if (sample == null)
             throw new IllegalStateException("Method matchStream is called before any template was set.");
-        Collection<Occurrence> answer = new ArrayList<>();
+        List<Occurrence> answer = new ArrayList<>();
         int currentPosition = 0;
         int currentPi = 0;
         while (!stream.isEmpty()) {
