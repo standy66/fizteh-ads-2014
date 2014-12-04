@@ -1,6 +1,5 @@
 package me.standy.matchers;
 
-import me.standy.matchers.utility.Occurrence;
 import me.standy.streams.CharStream;
 
 import java.util.List;

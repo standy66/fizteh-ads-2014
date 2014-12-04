@@ -1,6 +1,6 @@
-package me.standy.tests;
+package me.standy.utility;
 
-import me.standy.matchers.utility.Occurrence;
+import me.standy.matchers.Occurrence;
 
 import java.util.ArrayList;
 import java.util.Collections;

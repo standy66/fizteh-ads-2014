@@ -1,10 +1,11 @@
-package me.standy.tests;
+package me.standy.tests.general;
 
 import me.standy.matchers.MetaTemplateMatcher;
 import me.standy.matchers.SingleTemplateMatcher;
-import me.standy.matchers.utility.Occurrence;
+import me.standy.matchers.Occurrence;
 import me.standy.streams.CharStream;
 import me.standy.streams.StringStream;
+import me.standy.utility.Utility;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

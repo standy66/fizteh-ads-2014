@@ -3,25 +3,32 @@ package me.standy.streams;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-/**
+/** This class represents a stream of a random characters from the known alphabet.
  * Created by astepanov on 10.10.14.
  */
 public class RandomCharStream implements CharStream {
     private Random generator;
     private int position;
-    private int streamSize;
-    private int alphabetSize;
-    private char[] alphabet;
+    private final int streamSize;
+    private final int alphabetSize;
+    private final char[] alphabet;
 
-    public RandomCharStream(int streamSize, char[] alphabet) throws IllegalArgumentException {
-        if (alphabetSize > Character.MAX_VALUE)
-            throw new IllegalArgumentException("Alphabet is too large");
+    /**
+     * Constructs a new {@link me.standy.streams.RandomCharStream}. {@link java.util.Random}'s seed initialized with streamSize
+     * @param streamSize length of the stream.
+     * @param alphabet the alphabet from which random characters are chosen.
+     */
+    public RandomCharStream(int streamSize, char[] alphabet) {
         this.alphabetSize = alphabet.length;
         this.alphabet = alphabet;
         this.streamSize = streamSize;
         generator = new Random(streamSize);
     }
 
+    /**
+     * Returns next random character,
+     * @return random character from the alphabet.
+     */
     @Override
     public char nextChar() throws NoSuchElementException {
         if (position < streamSize) {
@@ -32,11 +39,18 @@ public class RandomCharStream implements CharStream {
         }
     }
 
+    /**
+     *
+     * @return true if and only if position >= streamSize
+     */
     @Override
     public boolean isEmpty() {
         return position >= streamSize;
     }
 
+    /**
+     * Resets the stream to its' initial state.
+     */
     public void reset() {
         generator = new Random(streamSize);
         position = 0;
