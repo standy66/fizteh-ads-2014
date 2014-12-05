@@ -11,6 +11,7 @@ public class RandomCharStream implements CharStream {
     private final int streamSize;
     private final int alphabetSize;
     private final char[] alphabet;
+    private final long seed;
     private Random generator;
     private int position;
 
@@ -23,7 +24,8 @@ public class RandomCharStream implements CharStream {
         this.alphabetSize = alphabet.length;
         this.alphabet = alphabet;
         this.streamSize = streamSize;
-        generator = new Random(streamSize);
+        seed = System.nanoTime();
+        generator = new Random(seed);
     }
 
     /**
@@ -53,7 +55,7 @@ public class RandomCharStream implements CharStream {
      * Resets the stream to its' initial state.
      */
     public void reset() {
-        generator = new Random(streamSize);
+        generator = new Random(seed);
         position = 0;
     }
 

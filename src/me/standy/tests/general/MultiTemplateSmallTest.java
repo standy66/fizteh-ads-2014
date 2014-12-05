@@ -3,6 +3,7 @@ package me.standy.tests.general;
 import me.standy.matchers.MetaTemplateMatcher;
 import me.standy.matchers.NaiveTemplateMatcher;
 import me.standy.matchers.Occurrence;
+import me.standy.matchers.StaticTemplateMatcher;
 import me.standy.streams.CharStream;
 import me.standy.streams.StringStream;
 import me.standy.utility.Utility;
@@ -36,7 +37,8 @@ public class MultiTemplateSmallTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
-                {NaiveTemplateMatcher.class}
+                //{NaiveTemplateMatcher.class},
+                {StaticTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }
@@ -45,7 +47,7 @@ public class MultiTemplateSmallTest {
         return new Object[][]{
                 {"abacaba", new String[]{"aba", "c", "a"}},
                 {"aaaaaaaaabaaaabbbaaaaba", new String[]{"a", "b", "ab", "aba", "bb"}},
-                {"Much text. So letters.", new String[]{"", "", "", ""}}
+                {"Much text. So letters.", new String[]{""}}
         };
     }
 

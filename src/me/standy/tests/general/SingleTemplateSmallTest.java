@@ -1,9 +1,6 @@
 package me.standy.tests.general;
 
-import me.standy.matchers.MetaTemplateMatcher;
-import me.standy.matchers.NaiveTemplateMatcher;
-import me.standy.matchers.Occurrence;
-import me.standy.matchers.SingleTemplateMatcher;
+import me.standy.matchers.*;
 import me.standy.streams.CharStream;
 import me.standy.streams.StringStream;
 import me.standy.utility.Utility;
@@ -35,7 +32,8 @@ public class SingleTemplateSmallTest {
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
                 {SingleTemplateMatcher.class},
-                {NaiveTemplateMatcher.class}
+                {NaiveTemplateMatcher.class},
+                {StaticTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }

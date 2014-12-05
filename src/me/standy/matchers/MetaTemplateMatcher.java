@@ -14,6 +14,7 @@ public interface MetaTemplateMatcher {
      * @param template a {@link String} representation of the template to be added to this matcher.
      * @return id of the template that will be used in {@link me.standy.matchers.Occurrence}
      * @throws UnsupportedOperationException if multiple templates are not supported or if this method was called after matchStream
+     * and that behaviour is not supported of if template duplicates are not supported
      * @throws java.lang.IllegalArgumentException if template is null
      */
     public int addTemplate(String template) throws UnsupportedOperationException, IllegalArgumentException;

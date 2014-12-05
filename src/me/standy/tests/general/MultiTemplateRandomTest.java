@@ -3,6 +3,7 @@ package me.standy.tests.general;
 import me.standy.matchers.MetaTemplateMatcher;
 import me.standy.matchers.NaiveTemplateMatcher;
 import me.standy.matchers.Occurrence;
+import me.standy.matchers.StaticTemplateMatcher;
 import me.standy.streams.CharStream;
 import me.standy.streams.RandomCharStream;
 import me.standy.utility.Utility;
@@ -46,14 +47,15 @@ public class MultiTemplateRandomTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
-                {NaiveTemplateMatcher.class}
+                {NaiveTemplateMatcher.class},
+                {StaticTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }
 
     public static Object[][] getParametersProjection() {
         return new Object[][]{
-                {100000, 20, 5, new char[]{'a', 'b'}}
+                {100000, 2, 5, new char[]{'a', 'b'}}
         };
     }
 
@@ -64,6 +66,7 @@ public class MultiTemplateRandomTest {
         templates = new String[templatesCount];
         for (int i = 0; i < templatesCount; i++) {
             templates[i] = new RandomCharStream(templateSize, alphabet).toString();
+            Thread.sleep(0, 100);
         }
         templateIds = new int[templatesCount];
         for (int i = 0; i < templatesCount; i++) {

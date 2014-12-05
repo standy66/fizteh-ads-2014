@@ -1,9 +1,6 @@
 package me.standy.tests.general;
 
-import me.standy.matchers.MetaTemplateMatcher;
-import me.standy.matchers.NaiveTemplateMatcher;
-import me.standy.matchers.Occurrence;
-import me.standy.matchers.SingleTemplateMatcher;
+import me.standy.matchers.*;
 import me.standy.streams.CharStream;
 import me.standy.streams.RandomCharStream;
 import me.standy.utility.Utility;
@@ -42,7 +39,8 @@ public class SingleTemplateRandomTest {
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
                 {SingleTemplateMatcher.class},
-                {NaiveTemplateMatcher.class}
+                {NaiveTemplateMatcher.class},
+                {StaticTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }
@@ -68,7 +66,8 @@ public class SingleTemplateRandomTest {
     public void test() throws Exception {
         List<Occurrence> rightAnswer = Utility.getListOfOccurrences(new String[] {template}, new int[] {templateId}, stream.toString());
         List<Occurrence> result = matcher.matchStream(stream);
-        Assert.assertTrue(Utility.isListsIsomorphic(rightAnswer, result));
+
+        Assert.assertTrue(matcherClass.toString(), Utility.isListsIsomorphic(rightAnswer, result));
     }
 
     public void benchmark() throws Exception {

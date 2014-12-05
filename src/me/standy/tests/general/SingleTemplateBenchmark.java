@@ -33,9 +33,7 @@ public class SingleTemplateBenchmark extends SingleTemplateRandomTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {
-                        NaiveTemplateMatcher.class, 10000, 1000, new char[]{'a', 'b', 'c'}
-                }
+                {NaiveTemplateMatcher.class, 10000, 1000, new char[]{'a', 'b', 'c'}}
         });
     }
 
