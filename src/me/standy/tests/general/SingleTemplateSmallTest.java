@@ -1,8 +1,9 @@
 package me.standy.tests.general;
 
 import me.standy.matchers.MetaTemplateMatcher;
-import me.standy.matchers.SingleTemplateMatcher;
+import me.standy.matchers.NaiveTemplateMatcher;
 import me.standy.matchers.Occurrence;
+import me.standy.matchers.SingleTemplateMatcher;
 import me.standy.streams.CharStream;
 import me.standy.streams.StringStream;
 import me.standy.utility.Utility;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,16 +32,24 @@ public class SingleTemplateSmallTest {
     }
 
     @Parameterized.Parameters
-    public static Collection<Object[]> getParameters() {
-        return Arrays.asList(new Object[][]{
-                { SingleTemplateMatcher.class, "", "abacaba" },
-                { SingleTemplateMatcher.class, "aba", "abacabadabacaba" },
-                { SingleTemplateMatcher.class, "", "" },
-                { SingleTemplateMatcher.class, "a", "aaaaaaaaaaaaaaaaaa" },
-                { SingleTemplateMatcher.class, "aa", "aaaaaaaaaaaaaaaaaaaa" },
-                { SingleTemplateMatcher.class, "aba", "abababababababa" },
-                { SingleTemplateMatcher.class, "this cannot be found", "" }
-        });
+    public static Collection<Object[]> data() {
+        Object[][] classes = new Object[][]{
+                {SingleTemplateMatcher.class},
+                {NaiveTemplateMatcher.class}
+        };
+        return Utility.cartesianProduct(classes, getParametersProjection());
+    }
+
+    public static Object[][] getParametersProjection() {
+        return new Object[][]{
+                {"", "abacaba"},
+                {"aba", "abacabadabacaba"},
+                {"", ""},
+                {"a", "aaaaaaaaaaaaaaaaaaaa"},
+                {"aa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+                {"aba", "ababababababababababab"},
+                {"this couldn't be found", ""}
+        };
     }
 
     @Test

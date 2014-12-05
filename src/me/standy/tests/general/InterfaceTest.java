@@ -1,6 +1,7 @@
 package me.standy.tests.general;
 
 import me.standy.matchers.MetaTemplateMatcher;
+import me.standy.matchers.NaiveTemplateMatcher;
 import me.standy.matchers.SingleTemplateMatcher;
 import me.standy.streams.RandomCharStream;
 import org.junit.Before;
@@ -24,18 +25,17 @@ public class InterfaceTest {
         this.matcherClass = matcherClass;
     }
 
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {SingleTemplateMatcher.class},
+                {NaiveTemplateMatcher.class}
+        });
+    }
+
     @Before
     public void setUp() throws Exception {
         matcher = matcherClass.newInstance();
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
-                {
-                        SingleTemplateMatcher.class
-                }
-        });
     }
 
     @Test(expected = IllegalArgumentException.class)

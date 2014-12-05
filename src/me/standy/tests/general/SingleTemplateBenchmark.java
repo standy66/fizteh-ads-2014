@@ -5,7 +5,7 @@ import com.carrotsearch.junitbenchmarks.BenchmarkRule;
 import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
 import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
 import me.standy.matchers.MetaTemplateMatcher;
-import me.standy.matchers.SingleTemplateMatcher;
+import me.standy.matchers.NaiveTemplateMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
@@ -34,13 +34,13 @@ public class SingleTemplateBenchmark extends SingleTemplateRandomTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
                 {
-                        SingleTemplateMatcher.class, 1000000, 1000, new char[] {'a', 'b', 'c'}
+                        NaiveTemplateMatcher.class, 10000, 1000, new char[]{'a', 'b', 'c'}
                 }
         });
     }
 
     @Override
-    @BenchmarkOptions(benchmarkRounds = 0)
+    @BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 2, callgc = false)
     public void test() throws Exception {
         super.test();
     }

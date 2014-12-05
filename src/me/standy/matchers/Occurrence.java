@@ -1,5 +1,6 @@
 package me.standy.matchers;
 
+
 /** Occurrence class represents occurrence of the template string in the stream.
  * Created by astepanov on 21.10.14.
  */

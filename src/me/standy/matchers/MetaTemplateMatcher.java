@@ -19,7 +19,7 @@ public interface MetaTemplateMatcher {
     public int addTemplate(String template) throws UnsupportedOperationException, IllegalArgumentException;
 
     /**
-     * Matches the set of templates that were added to this matcher with the stream.
+     * Matches the set of templates that were added to this matcher against the stream.
      * @param stream A {@link me.standy.streams.CharStream} that is going to be matched against the number of templates.
      * @return A {@link java.util.List} of {@link me.standy.matchers.Occurrence} representing the outcome of the matching process.
      * The templateId of each Occurrence corresponds to the one that addTemplate returned when that template was added.

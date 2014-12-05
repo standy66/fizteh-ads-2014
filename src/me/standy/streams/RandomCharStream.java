@@ -1,5 +1,6 @@
 package me.standy.streams;
 
+
 import java.util.NoSuchElementException;
 import java.util.Random;
 
@@ -7,11 +8,11 @@ import java.util.Random;
  * Created by astepanov on 10.10.14.
  */
 public class RandomCharStream implements CharStream {
-    private Random generator;
-    private int position;
     private final int streamSize;
     private final int alphabetSize;
     private final char[] alphabet;
+    private Random generator;
+    private int position;
 
     /**
      * Constructs a new {@link me.standy.streams.RandomCharStream}. {@link java.util.Random}'s seed initialized with streamSize

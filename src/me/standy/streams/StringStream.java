@@ -1,5 +1,6 @@
 package me.standy.streams;
 
+
 import java.util.NoSuchElementException;
 
 /** {@link me.standy.streams.StringStream} is a wrapper around {@link java.lang.String}
@@ -7,8 +8,8 @@ import java.util.NoSuchElementException;
  * Created by astepanov on 10.10.14.
  */
 public class StringStream implements CharStream {
-    private int currentPosition;
     private final String string;
+    private int currentPosition;
 
     /**
      * Constructs a new StringStream, initializing it with {@link java.lang.String} s.

@@ -5,7 +5,7 @@ import me.standy.streams.CharStream;
 import java.util.ArrayList;
 import java.util.List;
 
-/** This class allows one to match a single template against {@link me.standy.streams.CharStream}
+/** This class allows to match a single template against {@link me.standy.streams.CharStream}
  * The memory consumption is O(template length)
  * Created by astepanov on 10.10.14.
  */

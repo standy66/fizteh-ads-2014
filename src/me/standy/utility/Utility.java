@@ -2,6 +2,7 @@ package me.standy.utility;
 
 import me.standy.matchers.Occurrence;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,24 @@ public class Utility {
                 if (m.end() > 0)
                     answer.add(new Occurrence(templateId, m.end() - 1));
                 start = m.start() + 1;
+            }
+        }
+        return answer;
+    }
+
+    public static <T> T[] merge(T[] array1, T[] array2) {
+        T[] result = (T[]) Array.newInstance(array1.getClass().getComponentType(), array1.length + array2.length);
+        System.arraycopy(array1, 0, result, 0, array1.length);
+        System.arraycopy(array2, 0, result, array1.length, array2.length);
+        return result;
+    }
+
+    public static <T> List<T[]> cartesianProduct(T[][] x, T[][] y) {
+        List<T[]> answer = new ArrayList<>();
+
+        for (T[] o1 : x) {
+            for (T[] o2 : y) {
+                answer.add(merge(o1, o2));
             }
         }
         return answer;
