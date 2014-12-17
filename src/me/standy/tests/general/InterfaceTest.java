@@ -3,6 +3,7 @@ package me.standy.tests.general;
 import me.standy.matchers.MetaTemplateMatcher;
 import me.standy.matchers.NaiveTemplateMatcher;
 import me.standy.matchers.SingleTemplateMatcher;
+import me.standy.matchers.StaticTemplateMatcher;
 import me.standy.streams.RandomCharStream;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,8 @@ public class InterfaceTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {SingleTemplateMatcher.class},
-                {NaiveTemplateMatcher.class}
+                {NaiveTemplateMatcher.class},
+                {StaticTemplateMatcher.class}
         });
     }
 

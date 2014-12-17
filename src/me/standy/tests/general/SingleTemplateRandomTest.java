@@ -47,9 +47,9 @@ public class SingleTemplateRandomTest {
 
     public static Object[][] getParametersProjection() {
         return new Object[][]{
-                {10000, 3, new char[]{'a', 'b'}},
-                {1000, 2, new char[]{'a', 'b'}},
-                {30000, 3, new char[]{'a', 'b', 'c'}},
+                {10000, 4, new char[]{'a', 'b'}},
+                {1000, 3, new char[]{'a', 'b'}},
+                {30000, 4, new char[]{'a', 'b', 'c'}},
         };
     }
 

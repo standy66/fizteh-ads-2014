@@ -37,7 +37,7 @@ public class MultiTemplateSmallTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
-                //{NaiveTemplateMatcher.class},
+                {NaiveTemplateMatcher.class},
                 {StaticTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
@@ -47,7 +47,8 @@ public class MultiTemplateSmallTest {
         return new Object[][]{
                 {"abacaba", new String[]{"aba", "c", "a"}},
                 {"aaaaaaaaabaaaabbbaaaaba", new String[]{"a", "b", "ab", "aba", "bb"}},
-                {"Much text. So letters.", new String[]{""}}
+                {"Much text. So letters.", new String[]{""}},
+                {"abacabadabacaba", new String[] {"a", "b", "aba", "ba", "ab", "abac", "caba", "", "abaca"}}
         };
     }
 

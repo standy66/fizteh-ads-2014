@@ -2,10 +2,7 @@ package me.standy.matchers;
 
 import me.standy.streams.CharStream;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author andrew
@@ -13,9 +10,10 @@ import java.util.Set;
  */
 public class StaticTemplateMatcher implements MetaTemplateMatcher {
     private AhoNode rootNode = null;
-    private final Set<String> templatesSet = new HashSet<>();
     private final List<String> templatesList = new ArrayList<>();
+    private final Map<String, List<Integer>> listInverse = new HashMap<>();
 
+    //TODO: support template duplicates
     @Override
     public int addTemplate(String template) throws UnsupportedOperationException, IllegalArgumentException {
         if (template == null) {
@@ -24,11 +22,12 @@ public class StaticTemplateMatcher implements MetaTemplateMatcher {
         if (rootNode != null) {
             throw new UnsupportedOperationException("All templates should be added before matchStream invoked");
         }
-        if (templatesSet.contains(template)) {
-            throw new UnsupportedOperationException("Template duplicates are not supported");
-        }
-        templatesSet.add(template);
+
         templatesList.add(template);
+        if (listInverse.get(template) == null) {
+            listInverse.put(template, new ArrayList<>());
+        }
+        listInverse.get(template).add(templatesList.size() - 1);
         return templatesList.size() - 1;
     }
 
@@ -53,7 +52,10 @@ public class StaticTemplateMatcher implements MetaTemplateMatcher {
                 AhoNode nextHard = current;
                 while (nextHard != null) {
                     if (nextHard.terminal) {
-                        result.add(new Occurrence(nextHard.stringId, position));
+                        String template = templatesList.get(nextHard.stringId);
+                        for (Integer index : listInverse.get(template)) {
+                            result.add(new Occurrence(index, position));
+                        }
                     }
                     nextHard = nextHard.hardlink();
                 }

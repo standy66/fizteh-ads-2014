@@ -55,7 +55,7 @@ public class MultiTemplateRandomTest {
 
     public static Object[][] getParametersProjection() {
         return new Object[][]{
-                {100000, 2, 5, new char[]{'a', 'b'}}
+                {100000, 10, 8, new char[]{'a', 'b'}}
         };
     }
 
@@ -66,6 +66,7 @@ public class MultiTemplateRandomTest {
         templates = new String[templatesCount];
         for (int i = 0; i < templatesCount; i++) {
             templates[i] = new RandomCharStream(templateSize, alphabet).toString();
+            //TODO: fix this duct tape
             Thread.sleep(0, 100);
         }
         templateIds = new int[templatesCount];
