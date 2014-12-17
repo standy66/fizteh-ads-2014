@@ -10,9 +10,9 @@ import java.util.List;
  * Created by astepanov on 10.10.14.
  */
 public class SingleTemplateMatcher implements MetaTemplateMatcher {
-    private String sample = null;
-    private int[] samplePi = null;
-    private int sampleLength;
+    protected String sample = null;
+    protected int[] samplePi = null;
+    protected int sampleLength;
 
     /**
      * This method returns a prefix function of a string s

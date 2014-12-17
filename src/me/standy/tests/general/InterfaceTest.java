@@ -1,9 +1,6 @@
 package me.standy.tests.general;
 
-import me.standy.matchers.MetaTemplateMatcher;
-import me.standy.matchers.NaiveTemplateMatcher;
-import me.standy.matchers.SingleTemplateMatcher;
-import me.standy.matchers.StaticTemplateMatcher;
+import me.standy.matchers.*;
 import me.standy.streams.RandomCharStream;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +28,8 @@ public class InterfaceTest {
         return Arrays.asList(new Object[][]{
                 {SingleTemplateMatcher.class},
                 {NaiveTemplateMatcher.class},
-                {StaticTemplateMatcher.class}
+                {StaticTemplateMatcher.class},
+                {ModifiableSingleTemplateMatcher.class}
         });
     }
 

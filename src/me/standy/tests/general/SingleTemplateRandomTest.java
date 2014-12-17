@@ -40,7 +40,8 @@ public class SingleTemplateRandomTest {
         Object[][] classes = new Object[][]{
                 {SingleTemplateMatcher.class},
                 {NaiveTemplateMatcher.class},
-                {StaticTemplateMatcher.class}
+                {StaticTemplateMatcher.class},
+                {ModifiableSingleTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }
