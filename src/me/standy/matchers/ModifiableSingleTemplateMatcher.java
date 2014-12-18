@@ -19,7 +19,7 @@ public class ModifiableSingleTemplateMatcher extends SingleTemplateMatcher {
     protected void recalculate() {
         String suffix = appended.stream().map(x -> x.toString()).collect(Collectors.joining());
         String prefix = prepended.stream().map(x -> x.toString()).collect(Collectors.joining());
-        sample = String.join("", prefix, sample, suffix, String.valueOf((char) 0));
+        sample = String.join("", prefix, sample.substring(0, sample.length() - 1), suffix, String.valueOf((char) 0));
         samplePi = getPiFunction(sample);
         sampleLength = sample.length();
         appended.clear();
@@ -36,7 +36,7 @@ public class ModifiableSingleTemplateMatcher extends SingleTemplateMatcher {
         }
     }
 
-    public void prependCharToTemplate(char c) {
+    public void prependCharToTemplate(char c) throws IllegalStateException {
         if (sample == null) {
             throw new IllegalStateException("no template was set");
         }
@@ -62,6 +62,7 @@ public class ModifiableSingleTemplateMatcher extends SingleTemplateMatcher {
         } else {
             String read = buffer.stream().map(ch -> ch.toString()).collect(Collectors.joining());
             CharStream joined = new JoinedStream(new StringStream(read), stream);
+            recalculate();
             return super.matchStream(joined);
         }
     }
