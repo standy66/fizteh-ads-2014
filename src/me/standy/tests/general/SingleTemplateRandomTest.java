@@ -41,7 +41,8 @@ public class SingleTemplateRandomTest {
                 {SingleTemplateMatcher.class},
                 {NaiveTemplateMatcher.class},
                 {StaticTemplateMatcher.class},
-                {ModifiableSingleTemplateMatcher.class}
+                {ModifiableSingleTemplateMatcher.class},
+                {WildcardSingleTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }

@@ -1,10 +1,11 @@
-package me.standy.tests.general;
+package me.standy.tests.wildcardtemplatematcher;
 
 import me.standy.matchers.*;
 import me.standy.streams.CharStream;
 import me.standy.streams.StringStream;
 import me.standy.utility.Utility;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -13,28 +14,31 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by astepanov on 21.10.14.
+ * @author andrew
+ *         Created by andrew on 18.12.14.
  */
-
 @RunWith(Parameterized.class)
-public class SingleTemplateSmallTest {
-    private Class<? extends MetaTemplateMatcher> matcherClass;
+public class WildcardTest {
+    private Class<? extends WildcardSingleTemplateMatcher> matcherClass;
+    private WildcardSingleTemplateMatcher matcher;
     private String template;
     private String text;
 
-    public SingleTemplateSmallTest(Class<? extends MetaTemplateMatcher> matcherClass, String template, String text) {
+    public WildcardTest(Class<? extends WildcardSingleTemplateMatcher> matcherClass, String template, String text) {
         this.matcherClass = matcherClass;
         this.template = template;
         this.text = text;
     }
 
+    @Before
+    public void setUp() throws Exception {
+        matcher = matcherClass.newInstance();
+
+    }
+
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
-                {SingleTemplateMatcher.class},
-                {NaiveTemplateMatcher.class},
-                {StaticTemplateMatcher.class},
-                {ModifiableSingleTemplateMatcher.class},
                 {WildcardSingleTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
@@ -42,25 +46,24 @@ public class SingleTemplateSmallTest {
 
     public static Object[][] getParametersProjection() {
         return new Object[][]{
+                {"?", "aaa"},
+                {"?b?", "ababcbdblbbbbbcccc"},
+                {"??????", "abc"},
+                {"???b", "ccccccccccccccb"},
                 {"", "abacaba"},
-                {"aba", "abacabadabacaba"},
-                {"", ""},
-                {"a", "aaaaaaaaaaaaaaaaaaaa"},
-                {"aa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
-                {"aba", "ababababababababababab"},
-                {"this couldn't be found", ""}
+                {"?????", "TEXT. TEXT. TEXT. TEXT. TEXT. TEXT. TEXT. TEXT. "},
+                {"???.dat", "file.dat img.dat pic.dat str.dat .dat"}
         };
     }
 
     @Test
     public void test() throws IllegalAccessException, InstantiationException {
-        MetaTemplateMatcher matcher = matcherClass.newInstance();
         int templateId = matcher.addTemplate(template);
         CharStream textStream = new StringStream(text);
         List<Occurrence> matcherAnswer = matcher.matchStream(textStream);
-        List<Occurrence> rightAnswer = Utility.getListOfOccurrences(new String[]{template}, new int[]{templateId}, text);
-        Assert.assertTrue(String.format("Template: %s, text: %s", template, text), Utility.isListsIsomorphic(matcherAnswer, rightAnswer));
+        template = template.replace('?', '.');
+        List<Occurrence> rightAnswer = Utility.getListOfOccurrencesRegexp(new String[]{template}, new int[]{templateId}, text);
+        Assert.assertTrue(String.format("Template: %s, text: %s, matcher ans: %s, right ans: %s", template, text, matcherAnswer, rightAnswer), Utility.isListsIsomorphic(matcherAnswer, rightAnswer));
     }
-
 
 }

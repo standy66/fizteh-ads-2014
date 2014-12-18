@@ -3,6 +3,7 @@ package me.standy.tests.singletemplatematcher;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import me.standy.matchers.ModifiableSingleTemplateMatcher;
 import me.standy.matchers.SingleTemplateMatcher;
+import me.standy.matchers.WildcardSingleTemplateMatcher;
 import me.standy.streams.RandomCharStream;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,7 @@ public class AdditionalInterfaceTest {
         return Arrays.asList(new Object[][] {
                 {SingleTemplateMatcher.class},
                 {ModifiableSingleTemplateMatcher.class},
+                {WildcardSingleTemplateMatcher.class},
         });
     }
 

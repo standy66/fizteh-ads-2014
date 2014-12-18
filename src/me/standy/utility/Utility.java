@@ -19,7 +19,7 @@ public class Utility {
         return a.equals(b);
     }
 
-    public static List<Occurrence> getListOfOccurrences(String[] templates, int[] templateIds, String text) {
+    public static List<Occurrence> getListOfOccurrencesRegexp(String[] templates, int[] templateIds, String text) {
         List<Occurrence> answer = new ArrayList<>();
         assert templates.length == templateIds.length;
 
@@ -27,7 +27,7 @@ public class Utility {
             String template = templates[i];
             int templateId = templateIds[i];
 
-            Pattern p = Pattern.compile(Pattern.quote(template));
+            Pattern p = Pattern.compile(template);
             Matcher m = p.matcher(text);
             int start = 0;
             while (start <= text.length() && m.find(start)) {
@@ -38,6 +38,15 @@ public class Utility {
         }
         return answer;
     }
+
+    public static List<Occurrence> getListOfOccurrences(String[] templates, int[] templateIds, String text) {
+        String[] quoted = new String[templates.length];
+        for (int i = 0; i < templates.length; i++) {
+            quoted[i] = Pattern.quote(templates[i]);
+        }
+        return getListOfOccurrencesRegexp(quoted, templateIds, text);
+    }
+
 
     public static <T> T[] merge(T[] array1, T[] array2) {
         T[] result = (T[]) Array.newInstance(array1.getClass().getComponentType(), array1.length + array2.length);
