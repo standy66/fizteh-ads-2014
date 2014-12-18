@@ -1,9 +1,6 @@
 package me.standy.tests.general;
 
-import me.standy.matchers.MetaTemplateMatcher;
-import me.standy.matchers.NaiveTemplateMatcher;
-import me.standy.matchers.Occurrence;
-import me.standy.matchers.StaticTemplateMatcher;
+import me.standy.matchers.*;
 import me.standy.streams.CharStream;
 import me.standy.streams.RandomCharStream;
 import me.standy.utility.Utility;
@@ -48,7 +45,8 @@ public class MultiTemplateRandomTest {
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
                 {NaiveTemplateMatcher.class},
-                {StaticTemplateMatcher.class}
+                {StaticTemplateMatcher.class},
+                {DynamicTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }

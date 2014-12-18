@@ -13,7 +13,6 @@ public class StaticTemplateMatcher implements MetaTemplateMatcher {
     private final List<String> templatesList = new ArrayList<>();
     private final Map<String, List<Integer>> listInverse = new HashMap<>();
 
-    //TODO: support template duplicates
     @Override
     public int addTemplate(String template) throws UnsupportedOperationException, IllegalArgumentException {
         if (template == null) {

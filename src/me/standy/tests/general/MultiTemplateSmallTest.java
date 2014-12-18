@@ -1,9 +1,6 @@
 package me.standy.tests.general;
 
-import me.standy.matchers.MetaTemplateMatcher;
-import me.standy.matchers.NaiveTemplateMatcher;
-import me.standy.matchers.Occurrence;
-import me.standy.matchers.StaticTemplateMatcher;
+import me.standy.matchers.*;
 import me.standy.streams.CharStream;
 import me.standy.streams.StringStream;
 import me.standy.utility.Utility;
@@ -12,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,7 +36,8 @@ public class MultiTemplateSmallTest {
     public static Collection<Object[]> data() {
         Object[][] classes = new Object[][]{
                 {NaiveTemplateMatcher.class},
-                {StaticTemplateMatcher.class}
+                {StaticTemplateMatcher.class},
+                {DynamicTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }
@@ -61,6 +60,6 @@ public class MultiTemplateSmallTest {
         }
         List<Occurrence> matcherAnswer = matcher.matchStream(textStream);
         List<Occurrence> rightAnswer = Utility.getListOfOccurrences(templates, templateIds, text);
-        Assert.assertTrue(String.format("Templates: %s, text: %s", templates, text), Utility.isListsIsomorphic(matcherAnswer, rightAnswer));
+        Assert.assertTrue(String.format("Templates: %s, text: %s", Arrays.asList(templates), text), Utility.isListsIsomorphic(matcherAnswer, rightAnswer));
     }
 }
