@@ -19,7 +19,7 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
      * @param s not null string
      * @return prefix function of s
      */
-    protected final int[] getPiFunction(String s) {
+    protected static int[] getPiFunction(String s) {
         int length = s.length();
         int[] result = new int[length];
         result[0] = 0;
@@ -38,7 +38,7 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
      * @param nextChar the next character
      * @return the next value of prefix function
      */
-    protected final int nextPiValue(int[] piFunction, int currentPi, String s, char nextChar) {
+    protected static int nextPiValue(int[] piFunction, int currentPi, String s, char nextChar) {
         while (nextChar != s.charAt(currentPi) && currentPi > 0)
             currentPi = piFunction[currentPi - 1];
         if (nextChar == s.charAt(currentPi))

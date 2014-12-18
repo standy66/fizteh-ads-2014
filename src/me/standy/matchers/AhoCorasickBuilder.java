@@ -1,9 +1,6 @@
 package me.standy.matchers;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //TODO: fix file template
 /**
@@ -16,6 +13,7 @@ class AhoNode {
     AhoNode parent;
     char character;
     Map<Character, AhoNode> go = new HashMap<>();
+    Map<Character, AhoNode> next = new HashMap<>();
     AhoNode suflink = null;
     AhoNode hardlink = null;
     boolean hardLinkSet = false;
@@ -74,10 +72,10 @@ class AhoNode {
 
 class AhoCorasickBuilder {
 
-    public AhoNode build(List<String> strings) {
+    public AhoNode build(List<String> strings, List<Integer> ids) {
         AhoNode root = new AhoNode((char) 0, null, false, 0);
         for (int i = 0; i < strings.size(); i++) {
-            addString(root, strings.get(i), i);
+            addString(root, strings.get(i), ids.get(i));
         }
         return root;
     }
@@ -89,6 +87,7 @@ class AhoCorasickBuilder {
             if (current.go.get(c) == null) {
                 AhoNode newNode = new AhoNode(c, current, false, stringId);
                 current.go.put(c, newNode);
+                current.next.put(c, newNode);
             }
             current = current.go.get(c);
         }
@@ -96,5 +95,37 @@ class AhoCorasickBuilder {
         current.stringId = stringId;
     }
 
-
+    public AhoNode merge(AhoNode first, AhoNode second) {
+        if (first == null) {
+            return second;
+        }
+        if (second == null) {
+            return first;
+        }
+        Set<Character> processed = new HashSet<>();
+        for (Map.Entry<Character, AhoNode> edge : first.next.entrySet()) {
+            char ch = edge.getKey();
+            processed.add(ch);
+            AhoNode firstChild = edge.getValue();
+            AhoNode secondChild = second.next.get(ch);
+            first.next.put(ch, merge(firstChild, secondChild));
+        }
+        for (Map.Entry<Character, AhoNode> edge : second.next.entrySet()) {
+            AhoNode node = edge.getValue();
+            char ch = edge.getKey();
+            if (!processed.contains(ch)) {
+                node.parent = first;
+                first.next.put(ch, node);
+            }
+        }
+        first.hardlink = first.suflink = null;
+        first.hardLinkSet = false;
+        first.terminal |= second.terminal;
+        if (second.terminal) {
+            first.stringId = second.stringId;
+        }
+        first.go.clear();
+        first.go.putAll(first.next);
+        return first;
+    }
 }

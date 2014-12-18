@@ -40,7 +40,11 @@ public class StaticTemplateMatcher implements MetaTemplateMatcher {
             throw new IllegalStateException("no templates to match against");
         }
         if (rootNode == null) {
-            rootNode = new AhoCorasickBuilder().build(templatesList);
+            Integer[] identity = new Integer[templatesList.size()];
+            for (int i = 0; i < identity.length; i++) {
+                identity[i] = i;
+            }
+            rootNode = new AhoCorasickBuilder().build(templatesList, Arrays.asList(identity));
         }
         AhoNode current = rootNode;
         List<Occurrence> result = new ArrayList<>();

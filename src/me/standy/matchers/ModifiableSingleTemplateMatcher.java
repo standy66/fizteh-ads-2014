@@ -3,7 +3,6 @@ package me.standy.matchers;
 import me.standy.streams.CharStream;
 import me.standy.streams.JoinedStream;
 import me.standy.streams.StringStream;
-import me.standy.tests.general.SingleTemplateRandomTest;
 
 import java.util.*;
 import java.util.stream.Collectors;
