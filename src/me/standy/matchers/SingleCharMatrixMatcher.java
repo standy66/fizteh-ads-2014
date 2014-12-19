@@ -10,6 +10,9 @@ import java.util.List;
  * @author andrew
  *         Created by andrew on 19.12.14.
  */
+
+//TODO: doesn't work
+@Deprecated
 public class SingleCharMatrixMatcher implements MetaCharMatrixMatcher {
     private int[][] piFunctions = null;
     private String[] sample;
