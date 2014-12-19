@@ -19,7 +19,7 @@ public class ModifiableSingleTemplateMatcher extends SingleTemplateMatcher {
         String suffix = appended.stream().map(x -> x.toString()).collect(Collectors.joining());
         String prefix = prepended.stream().map(x -> x.toString()).collect(Collectors.joining());
         sample = String.join("", prefix, sample.substring(0, sample.length() - 1), suffix, String.valueOf((char) 0));
-        samplePi = getPiFunction(sample);
+        samplePi = PiFunction.getPiFunction(sample);
         sampleLength = sample.length();
         appended.clear();
         prepended.clear();

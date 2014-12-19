@@ -15,38 +15,6 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
     protected int sampleLength;
 
     /**
-     * This method returns a prefix function of a string s
-     * @param s not null string
-     * @return prefix function of s
-     */
-    protected static int[] getPiFunction(String s) {
-        int length = s.length();
-        int[] result = new int[length];
-        result[0] = 0;
-        for (int i = 1; i < length; ++i) {
-            result[i] = nextPiValue(result, result[i - 1], s, s.charAt(i));
-        }
-        return result;
-    }
-
-    /**
-     * This methods returns the next value of prefix function of string s, considering that previous values are
-     * stored in array piFunction and the current pi function equals to currentPi
-     * @param piFunction the previous values of prefix function
-     * @param currentPi the current value of prefix function
-     * @param s the string
-     * @param nextChar the next character
-     * @return the next value of prefix function
-     */
-    protected static int nextPiValue(int[] piFunction, int currentPi, String s, char nextChar) {
-        while (nextChar != s.charAt(currentPi) && currentPi > 0)
-            currentPi = piFunction[currentPi - 1];
-        if (nextChar == s.charAt(currentPi))
-            currentPi++;
-        return currentPi;
-    }
-
-    /**
      * This method is used to set a string as a template to the matcher. Note that if the
      * method was called twice with non-null arguments, the second invocation will cause.
      * This method executes in O(template length) time
@@ -62,7 +30,7 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
         if (sample != null)
             throw new UnsupportedOperationException("This class doesn't support multiple templates.");
         sample = template + (char) 0;
-        samplePi = getPiFunction(sample);
+        samplePi = PiFunction.getPiFunction(sample);
         sampleLength = sample.length();
         return 0;
     }
@@ -85,7 +53,7 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
         int currentPi = 0;
         while (!stream.isEmpty()) {
             char character = stream.nextChar();
-            currentPi = nextPiValue(samplePi, currentPi, sample, character);
+            currentPi = PiFunction.nextPiValue(samplePi, currentPi, sample, character);
             if (currentPi == sampleLength - 1) {
                 answer.add(new Occurrence(0, currentPosition));
             }
