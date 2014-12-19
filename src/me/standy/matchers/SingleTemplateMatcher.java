@@ -30,7 +30,7 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
         if (sample != null)
             throw new UnsupportedOperationException("This class doesn't support multiple templates.");
         sample = template + (char) 0;
-        samplePi = PiFunction.getPiFunction(sample);
+        samplePi = PiFunctionImpl.getPiFunction(sample);
         sampleLength = sample.length();
         return 0;
     }
@@ -53,7 +53,7 @@ public class SingleTemplateMatcher implements MetaTemplateMatcher {
         int currentPi = 0;
         while (!stream.isEmpty()) {
             char character = stream.nextChar();
-            currentPi = PiFunction.nextPiValue(samplePi, currentPi, sample, character);
+            currentPi = PiFunctionImpl.nextPiValue(samplePi, currentPi, sample, character);
             if (currentPi == sampleLength - 1) {
                 answer.add(new Occurrence(0, currentPosition));
             }

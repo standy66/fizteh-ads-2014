@@ -4,7 +4,7 @@ package me.standy.matchers;
  * @author andrew
  *         Created by andrew on 19.12.14.
  */
-class PiFunction {
+class PiFunctionImpl {
     /**
      * This method returns a prefix function of a string s
      * @param s not null string

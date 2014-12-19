@@ -32,7 +32,7 @@ public class WildcardSingleTemplateMatcher extends SingleTemplateMatcher {
         samples = Arrays.asList(template.split(Pattern.quote("?"), -1)).stream().map(s -> s + (char) 0).toArray((size) -> new String[size]);
         piFunctions = new int[samples.length][];
         for (int i = 0; i < samples.length; i++) {
-            piFunctions[i] = PiFunction.getPiFunction(samples[i]);
+            piFunctions[i] = PiFunctionImpl.getPiFunction(samples[i]);
         }
         return 0;
     }
@@ -59,7 +59,7 @@ public class WildcardSingleTemplateMatcher extends SingleTemplateMatcher {
             for (int suffixNumber = 0; suffixNumber < sufficesSizes.length; suffixNumber++) {
                 int len = sufficesSizes[suffixNumber].size();
                 int currentPi = sufficesSizes[suffixNumber].get(len - 1);
-                sufficesSizes[suffixNumber].add(PiFunction.nextPiValue(piFunctions[suffixNumber], currentPi, samples[suffixNumber], nextChar));
+                sufficesSizes[suffixNumber].add(PiFunctionImpl.nextPiValue(piFunctions[suffixNumber], currentPi, samples[suffixNumber], nextChar));
             }
             int sufIndex = sufficesSizes.length - 1;
             int sufPosition = currentPosition + 1;
