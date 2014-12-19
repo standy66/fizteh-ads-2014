@@ -15,7 +15,7 @@ public interface MetaCharMatrixMatcher {
      * @throws UnsupportedOperationException if jagged matrix not supported or if multiple tempaltes not supported
      * @throws IllegalArgumentException if template is null
      */
-    int addTemplate(String[] template) throws UnsupportedOperationException, IllegalArgumentException;
+    int addTemplate(String[] template) throws UnsupportedOperationException, IllegalStateException, IllegalArgumentException;
 
     /**
      * Tests a set of template matrices against target matrix.
