@@ -35,20 +35,22 @@ public class SingleTemplateSmallTest {
                 {NaiveTemplateMatcher.class},
                 {StaticTemplateMatcher.class},
                 {ModifiableSingleTemplateMatcher.class},
-                {WildcardSingleTemplateMatcher.class}
+                {WildcardSingleTemplateMatcher.class},
+                {DynamicTemplateMatcher.class}
         };
         return Utility.cartesianProduct(classes, getParametersProjection());
     }
 
     public static Object[][] getParametersProjection() {
-        return new Object[][]{
+        return new Object[][] {
                 {"", "abacaba"},
                 {"aba", "abacabadabacaba"},
                 {"", ""},
                 {"a", "aaaaaaaaaaaaaaaaaaaa"},
                 {"aa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
                 {"aba", "ababababababababababab"},
-                {"this couldn't be found", ""}
+                {"this couldn't be found", ""},
+                {"", ""}
         };
     }
 

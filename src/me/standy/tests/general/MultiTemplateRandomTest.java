@@ -31,6 +31,9 @@ public class MultiTemplateRandomTest {
     private int[] templateIds;
     private List<Occurrence> rightAnswer;
 
+    protected boolean isBenchmark() {
+        return false;
+    }
 
     public MultiTemplateRandomTest(Class<? extends MetaTemplateMatcher> matcherClass,
                                    int textStreamSize, int templatesCount, int templateSize, char[] alphabet) {
@@ -64,19 +67,21 @@ public class MultiTemplateRandomTest {
         templates = new String[templatesCount];
         for (int i = 0; i < templatesCount; i++) {
             templates[i] = new RandomCharStream(templateSize, alphabet).toString();
-            //TODO: fix this duct tape
-            Thread.sleep(0, 100);
         }
         templateIds = new int[templatesCount];
         for (int i = 0; i < templatesCount; i++) {
             templateIds[i] = matcher.addTemplate(templates[i]);
         }
-        rightAnswer = Utility.getListOfOccurrences(templates, templateIds, stream.toString());
+        if (!isBenchmark()) {
+            rightAnswer = Utility.getListOfOccurrences(templates, templateIds, stream.toString());
+        }
     }
 
     @Test
     public void test() throws Exception {
         List<Occurrence> matcherAnswer = matcher.matchStream(stream);
-        Assert.assertTrue(Utility.isListsIsomorphic(rightAnswer, matcherAnswer));
+        if (!isBenchmark()) {
+            Assert.assertTrue(Utility.isListsIsomorphic(rightAnswer, matcherAnswer));
+        }
     }
 }

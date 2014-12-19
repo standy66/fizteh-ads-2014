@@ -27,6 +27,10 @@ public class SingleTemplateRandomTest {
     private CharStream stream;
     private int templateId;
 
+    protected boolean isBenchmark() {
+        return false;
+    }
+
 
     public SingleTemplateRandomTest(Class<? extends MetaTemplateMatcher> matcherClass, int streamSize, int templateSize, char[] alphabet) {
         this.matcherClass = matcherClass;
@@ -52,6 +56,7 @@ public class SingleTemplateRandomTest {
                 {10000, 4, new char[]{'a', 'b'}},
                 {1000, 3, new char[]{'a', 'b'}},
                 {30000, 4, new char[]{'a', 'b', 'c'}},
+                {100000, 1000, new char[] {'a'}},
         };
     }
 
@@ -66,13 +71,10 @@ public class SingleTemplateRandomTest {
 
     @Test
     public void test() throws Exception {
-        List<Occurrence> rightAnswer = Utility.getListOfOccurrences(new String[] {template}, new int[] {templateId}, stream.toString());
         List<Occurrence> result = matcher.matchStream(stream);
-
-        Assert.assertTrue(matcherClass.toString(), Utility.isListsIsomorphic(rightAnswer, result));
-    }
-
-    public void benchmark() throws Exception {
-        matcher.matchStream(stream);
+        if (!isBenchmark()) {
+            List<Occurrence> rightAnswer = Utility.getListOfOccurrences(new String[]{template}, new int[]{templateId}, stream.toString());
+            Assert.assertTrue(matcherClass.toString(), Utility.isListsIsomorphic(rightAnswer, result));
+        }
     }
 }

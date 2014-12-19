@@ -1,6 +1,7 @@
 package me.standy.utility;
 
 import me.standy.matchers.Occurrence;
+import me.standy.matchers.Occurrence2D;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -17,6 +18,39 @@ public class Utility {
         Collections.sort(a);
         Collections.sort(b);
         return a.equals(b);
+    }
+
+    public static List<Occurrence2D> matchCharMatrices(String[] template, String[] target, int templateId) {
+        assert template != null;
+        assert target != null;
+        List<Occurrence2D> result = new ArrayList<>();
+
+        for (int row = 0; row < target.length; row++) {
+            for (int col = 0; col < target[row].length(); col++) {
+                boolean matched = true;
+                for (int templateRow = 0; templateRow < template.length; templateRow++) {
+                    if (row + templateRow >= target.length) {
+                        matched = false;
+                        break;
+                    }
+                    String templatePiece = template[templateRow];
+                    String targetPiece = target[row + templateRow];
+                    if (col + templatePiece.length() >= targetPiece.length()) {
+                        matched = false;
+                        break;
+                    }
+                    String sub = targetPiece.substring(col, col + templatePiece.length());
+                    if (!sub.equals(templatePiece)) {
+                        matched = false;
+                        break;
+                    }
+                }
+                if (matched) {
+                    result.add(new Occurrence2D(row + template.length, col + template[0].length(), templateId));
+                }
+            }
+        }
+        return result;
     }
 
     public static List<Occurrence> getListOfOccurrencesRegexp(String[] templates, int[] templateIds, String text) {

@@ -88,7 +88,10 @@ public class AppendPrependTest {
     }
     public static Object[][] getParametersProjection() {
         return new Object[][]{
-                {"abacaba", new Action[] {new Append('b'), new Append('a'), new Prepend('a')}}
+                {"abacaba", new Action[] {new Append('b'), new Append('a'), new Prepend('a')}},
+                {"abacaba", new Action[] {}},
+                {"aaaaaaaaaaa", new Action[] {new Append('a'), new Prepend('a'), new Append('a'), new Prepend('b')}},
+                {"", new Action[] {new Append('a')}},
         };
     }
 

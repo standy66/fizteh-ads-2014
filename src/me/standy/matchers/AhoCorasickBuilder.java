@@ -95,11 +95,20 @@ class AhoCorasickBuilder {
         current.stringId = stringId;
     }
 
+    private void clear(AhoNode node) {
+        node.hardLinkSet = false;
+        node.suflink = node.hardlink = null;
+        node.go.clear();
+        node.go.putAll(node.next);
+    }
+
     public AhoNode merge(AhoNode first, AhoNode second) {
         if (first == null) {
+            clear(second);
             return second;
         }
         if (second == null) {
+            clear(first);
             return first;
         }
         Set<Character> processed = new HashSet<>();

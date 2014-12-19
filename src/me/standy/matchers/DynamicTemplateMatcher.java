@@ -32,6 +32,8 @@ public class DynamicTemplateMatcher implements MetaTemplateMatcher {
             }
             AhoNode n1 = l1.get(pos);
             AhoNode n2 = l2.get(pos);
+            int numbersOfNonNull = (n1 != null ? 1 : 0) + (n2 != null ? 1 : 0) + (shift != null ? 1 : 0);
+
             if (n1 == null) {
                 if (n2 == null) {
                     if (shift == null) {

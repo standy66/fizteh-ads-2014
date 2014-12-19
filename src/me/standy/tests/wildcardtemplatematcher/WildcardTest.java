@@ -52,7 +52,8 @@ public class WildcardTest {
                 {"???b", "ccccccccccccccb"},
                 {"", "abacaba"},
                 {"?????", "TEXT. TEXT. TEXT. TEXT. TEXT. TEXT. TEXT. TEXT. "},
-                {"???.dat", "file.dat img.dat pic.dat str.dat .dat"}
+                {"???.dat", "file.dat img.dat pic.dat str.dat .dat"},
+                {"", "???????????"},
         };
     }
 

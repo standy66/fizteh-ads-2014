@@ -30,7 +30,8 @@ public class InterfaceTest {
                 {NaiveTemplateMatcher.class},
                 {StaticTemplateMatcher.class},
                 {ModifiableSingleTemplateMatcher.class},
-                {WildcardSingleTemplateMatcher.class}
+                {WildcardSingleTemplateMatcher.class},
+                {DynamicTemplateMatcher.class}
         });
     }
 
