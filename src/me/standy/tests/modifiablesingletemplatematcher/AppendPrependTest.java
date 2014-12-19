@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.AbstractCollection;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -92,6 +93,7 @@ public class AppendPrependTest {
                 {"abacaba", new Action[] {}},
                 {"aaaaaaaaaaa", new Action[] {new Append('a'), new Prepend('a'), new Append('a'), new Prepend('b')}},
                 {"", new Action[] {new Append('a')}},
+                {"aab", new Action[] {new Append('b'), new Prepend('a'), new Prepend('a')}}
         };
     }
 
