@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
+ * This class supports additional symbols aka wildcards (?) to match any symbol.
  * @author andrew
  *         Created by andrew on 18.12.14.
  */
@@ -15,6 +16,13 @@ public class WildcardSingleTemplateMatcher extends SingleTemplateMatcher {
     int[][] piFunctions = null;
     String[] samples = null;
 
+    /**
+     * This method is used to set a string as a template to the matcher. Note that if the method was called twice with non-null arguments,
+     * the second invocation will cause {@link java.lang.UnsupportedOperationException}. This method executes in O(template length) time.
+     * Note that wildcard (?) matches any symbol in the stream.
+     * @param template a {@link String} representation of the template to be added to this matcher.
+     * @return 0
+     */
     @Override
     public int addTemplate(String template) throws UnsupportedOperationException, IllegalArgumentException {
         if (template == null)
@@ -29,6 +37,11 @@ public class WildcardSingleTemplateMatcher extends SingleTemplateMatcher {
         return 0;
     }
 
+    /**
+     * Matches the template that was added to this matcher with the stream. This method executes
+     * in O(stream length * number of wildcards) time and consumes additional O(stream length * number of wildcards) memory.
+     * @param stream A {@link me.standy.streams.CharStream} that is going to be matched against the template.
+     */
     @Override
     public List<Occurrence> matchStream(CharStream stream) throws IllegalStateException, IllegalArgumentException {
         if (stream == null)

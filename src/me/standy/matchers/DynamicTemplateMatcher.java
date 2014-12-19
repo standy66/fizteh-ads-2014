@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import static java.lang.Math.max;
 
 /**
+ * This class is similar to StaticTemplateMatcher, except addTemplate and matchStream invocations may alternate.
  * @author andrew
  *         Created by andrew on 18.12.14.
  */
@@ -68,8 +69,12 @@ public class DynamicTemplateMatcher implements MetaTemplateMatcher {
         return answer;
     }
 
+    /**
+     * This methods adds a template string to this matcher. Executes in amortized O(template length * log number of templates).
+     * @throws IllegalArgumentException if a template is null
+     */
     @Override
-    public int addTemplate(String template) throws UnsupportedOperationException, IllegalArgumentException {
+    public int addTemplate(String template) throws IllegalArgumentException {
         if (template == null) {
             throw new IllegalArgumentException("template should not be null");
         }
@@ -85,6 +90,11 @@ public class DynamicTemplateMatcher implements MetaTemplateMatcher {
         return templateId++;
     }
 
+    /**
+     * Matches the set of templates that were added to this matcher against the stream. This method executes in O(stream size * log number of templates).
+     * @throws IllegalStateException if no templates was added.
+     * @throws IllegalArgumentException if stream is null.
+     */
     @Override
     public List<Occurrence> matchStream(CharStream stream) throws IllegalStateException, IllegalArgumentException {
         if (stream == null) {

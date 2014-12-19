@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * This class supports additional appendCharToTemplate and prependCharToTemplate methods.
  * @author andrew
  *         Created by andrew on 17.12.14.
  */
@@ -25,6 +26,11 @@ public class ModifiableSingleTemplateMatcher extends SingleTemplateMatcher {
         prepended.clear();
     }
 
+    /**
+     * Appends symbol c to the template. This method runs in amortized O(1) time.
+     * @param c the symbol.
+     * @throws IllegalStateException if no template was set.
+     */
     public void appendCharToTemplate(char c) throws IllegalStateException {
         if (sample == null) {
             throw new IllegalStateException("no template was set");
@@ -35,6 +41,11 @@ public class ModifiableSingleTemplateMatcher extends SingleTemplateMatcher {
         }
     }
 
+    /**
+     * Prepends symbol c to the template. This method runs in amortized O(1) time.
+     * @param c the symbol.
+     * @throws IllegalStateException if no template was set.
+     */
     public void prependCharToTemplate(char c) throws IllegalStateException {
         if (sample == null) {
             throw new IllegalStateException("no template was set");

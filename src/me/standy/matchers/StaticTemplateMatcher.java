@@ -5,6 +5,8 @@ import me.standy.streams.CharStream;
 import java.util.*;
 
 /**
+ * This class represents matcher based on Aho Corasick algorithm. Note that all templates should be added before
+ * matchStream invoked.
  * @author andrew
  *         Created by andrew on 05.12.14.
  */
@@ -13,6 +15,13 @@ public class StaticTemplateMatcher implements MetaTemplateMatcher {
     private final List<String> templatesList = new ArrayList<>();
     private final Map<String, List<Integer>> listInverse = new HashMap<>();
 
+    /**
+     * Adds a template to this matcher. This method's running time os O(template length)
+     * @param template a {@link String} representation of the template to be added to this matcher.
+     * @return an id of a template used in {@link me.standy.matchers.Occurrence} class
+     * @throws UnsupportedOperationException if a template was added after matchStream invoked.
+     * @throws IllegalArgumentException if the template string is null
+     */
     @Override
     public int addTemplate(String template) throws UnsupportedOperationException, IllegalArgumentException {
         if (template == null) {
@@ -30,6 +39,13 @@ public class StaticTemplateMatcher implements MetaTemplateMatcher {
         return templatesList.size() - 1;
     }
 
+    /**
+     * Matches the set of templates that were added to this matcher against the stream. This method's running time
+     * is O(stream size + total number of occurrences).
+     * @param stream A {@link me.standy.streams.CharStream} that is going to be matched against the number of templates
+     * @throws IllegalStateException if no templates was added to this matcher
+     * @throws IllegalArgumentException if stream is null
+     */
     @Override
     public List<Occurrence> matchStream(CharStream stream) throws IllegalStateException, IllegalArgumentException {
         if (stream == null) {
