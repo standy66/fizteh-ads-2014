@@ -59,9 +59,17 @@ public class DynamicTemplateMatcherTest {
 
     public static Object[][] getParametersProjection() {
         return new Object[][]{
-                {"abacaba", new Object[] {new Add("a"), new Check(), new Add(""), new Check(), new Add("aba"), new Add("c"), new Check()}},
-                {"", new Object[] {new Add(""), new Check()}},
-                {"aaaaaaaaaaaa", new Object[] {new Add("a"), new Check(), new Add(""), new Add("aa"), new Add("aba"), new Add("c"), new Add(""), new Check()}},
+                {"abacaba", new Object[]
+                        {new Add("a"), new Check(), new Add(""), new Check(), new Add("aba"), new Add("c"), new Check()}},
+
+                {"", new Object[]
+                        {new Add(""), new Check()}},
+
+                {"aaaaaaaaaaaa", new Object[]
+                        {new Add("a"), new Check(), new Add(""), new Add("aa"), new Add("aba"), new Add("c"), new Add(""), new Check()}},
+
+                {"aabb", new Object[]
+                        {new Add("aabb"), new Check(), new Add("b"), new Add("ab"), new Add("abb"), new Check()}}
         };
     }
 

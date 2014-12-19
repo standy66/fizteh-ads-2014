@@ -15,8 +15,9 @@ import java.util.List;
  * @author andrew
  *         Created by andrew on 19.12.14.
  */
+
 @RunWith(Parameterized.class)
-public class SingleCharMatrixMatcherSmallTest {
+class SingleCharMatrixMatcherSmallTest {
     private Class<? extends MetaCharMatrixMatcher> matcherClass;
     private MetaCharMatrixMatcher matcher;
     private String[] template;

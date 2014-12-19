@@ -47,7 +47,7 @@ public class DynamicTemplateMatcher implements MetaTemplateMatcher {
                         answer.add(n2);
                     } else {
                         answer.add(null);
-                        shift = builder.merge(shift, n2);
+                        shift = builder.merge(shift, n2, templatesList);
                     }
                 }
             } else {
@@ -56,14 +56,14 @@ public class DynamicTemplateMatcher implements MetaTemplateMatcher {
                         answer.add(n1);
                     } else {
                         answer.add(null);
-                        shift = builder.merge(shift, n1);
+                        shift = builder.merge(shift, n1, templatesList);
                     }
                 } else {
                     if (shift == null) {
                         answer.add(null);
-                        shift = builder.merge(n1, n2);
+                        shift = builder.merge(n1, n2, templatesList);
                     } else {
-                        answer.add(builder.merge(n1, n2));
+                        answer.add(builder.merge(n1, n2, templatesList));
                     }
                 }
             }
@@ -82,8 +82,8 @@ public class DynamicTemplateMatcher implements MetaTemplateMatcher {
         }
         AhoNode newNode = new AhoCorasickBuilder().build(Arrays.asList(new String[] {template}),
                 Arrays.asList(new Integer[] {templateId}));
-        forest = mergeForests(forest, new ArrayList<>(Arrays.asList(new AhoNode[] {newNode})));
         templatesList.add(template);
+        forest = mergeForests(forest, new ArrayList<>(Arrays.asList(new AhoNode[] {newNode})));
         if (listInverse.get(template) == null) {
             listInverse.put(template, new ArrayList<>());
         }
